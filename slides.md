@@ -30,10 +30,6 @@ How (and why) do we go from a python script(s) to something reproducible?
 * we want the recipient to have confidence
 * copy and paste is just not a valid method of sharing code
 
-## Most Importantly
-
-Every time you publish you make the ecosystem better
-
 ## My Motivation
 
 * Developed TimeView GUI application
@@ -53,4 +49,15 @@ def make_adj_matrix(points):
     return squarelike(pdist(points))
 ```
 
-## 
+## Create a Project Directory
+
+![Create Source Directory](./images/basic_file.png "Creating Source Directory")
+
+## More Boilerplate
+
+* get an appropriate `.gitignore` file from https://gitignore.io
+* assign a software license - if unsure take a look at https://choosealicence.com
+* create a readme file
+
+![More Boilerplate](./images/more_boilerplate.png "Adding More Boilerplate")
+
