@@ -61,3 +61,15 @@ def make_adj_matrix(points):
 
 ![More Boilerplate](./images/more_boilerplate.png "Adding More Boilerplate")
 
+## Different Methods to Package
+
+* `setuptools` with a `setup.py` to create a pip installable package
+* `filt` with `pyproject.toml` to create a pip installable package
+* `pipenv` with a `Pipfile` to create a reproducible python environment
+* `conda-skeleton` to create a `conda` installable package
+
+## setuptools
+
+* Most common method of packaging
+* Not part of the standard library, but comes with `pip` so you likely already have it
+* Create `setup.py` and configure it to install things the way you want them to
