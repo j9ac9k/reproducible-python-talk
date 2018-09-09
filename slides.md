@@ -18,7 +18,7 @@ How (and why) do we go from a python script(s) to something reproducible?
 * why publish?
 * `setuptools` (`setup.py`)
 * `pipenv`
-* `filt` (`pyproject.toml`)
+* `flit` (`pyproject.toml`)
 * PyPI distribution
 
 :::
@@ -121,7 +121,7 @@ array([[0.        , 1.41421356, 2.82842712],
 >>>
 ```
 
-## Creating a Binary Distribution
+## Creating Binary Distribution
 
 ```bash
 $ python setup.py bdist_wheel
@@ -132,6 +132,40 @@ adj_matrix_ogi-0.0.1-py3-none-any.whl
 
 This creates a binary distribution, also known as a `wheel`, which is usually what PyPI distributes.
 
-## Creating a Source Distributions
+## Creating Source Distribution
 
-Source distributions are effectively like an archive of everything in the source code repository, including license file, supplemental data, `setup.py` and so on.
+Source distributions are effectively like an archive of everything in the source code repository, including the license file, supplemental data, `setup.py` and so on.  By default `setuptools` ignores these files.
+
+To grab these supplemental files you will need to manually specify them...we do this using a `MANIFEST.in` file
+
+## MANIFEST.in
+
+Example from TimeView
+
+```bash
+$ cat ~/Developer/timeview/MANIFEST.in
+include timeview/manager/main.ui
+include timeview/manager/dataset.db
+recursive-include timeview *.json
+```
+
+## MANIFEST Continued
+
+There's a tool for that... 
+
+Make sure all the file are added to your repository and then run:
+
+```bash
+$ pip install check-manifest
+...
+$ check-manifest --create
+```
+
+## Verify Successful Build
+
+```bash
+$ python setup.py bdist_wheel sdist
+...
+$ ls dist/
+...
+```
