@@ -23,3 +23,6 @@ clean-pyc: ## remove Python file artifacts
 
 slides: ## create slides
 	/usr/local/bin/pandoc -t revealjs -s -o slides.html slides.md -V revealjs-url=./reveal.js -V theme=beige
+
+pdf-slides:
+	/usr/local/bin/pandoc -t beamer -s -o slides.pdf slides.md
