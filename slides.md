@@ -121,4 +121,17 @@ array([[0.        , 1.41421356, 2.82842712],
 >>>
 ```
 
-## We can 
+## Creating a Binary Distribution
+
+```bash
+$ python setup.py bdist_wheel
+...
+$ ls dist
+adj_matrix_ogi-0.0.1-py3-none-any.whl
+```
+
+This creates a binary distribution, also known as a `wheel`, which is usually what PyPI distributes.
+
+## Creating a Source Distributions
+
+Source distributions are effectively like an archive of everything in the source code repository, including license file, supplemental data, `setup.py` and so on.
