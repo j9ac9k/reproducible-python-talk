@@ -104,7 +104,7 @@ setup(
     )
 ```
 
-## Does It Work?
+## Verify It Works
 
 ```bash
 $ pip install -e .
@@ -121,6 +121,14 @@ array([[0.        , 1.41421356, 2.82842712],
 >>>
 ```
 
+## Private Deployment
+
+At this point, if the source code is on a remote git repository, it's installable via pip by someone else!
+
+```bash
+$ pip install git+git://github.com/j9ac9k/timeview#egg=timeview
+```
+
 ## Creating Binary Distribution
 
 ```bash
@@ -134,26 +142,30 @@ This creates a binary distribution, also known as a `wheel`, which is usually wh
 
 ## Creating Source Distribution
 
-Source distributions are effectively like an archive of everything in the source code repository, including the license file, supplemental data, `setup.py` and so on.  By default `setuptools` ignores these files.
+Source distributions are an archive of everything in the source code repository, including
+* LICENSE.txt
+* supplemental data
+* `setup.py`
+* and more!
 
-To grab these supplemental files you will need to manually specify them...we do this using a `MANIFEST.in` file
+By default `setuptools` ignores these files.
 
 ## MANIFEST.in
 
-Example from TimeView
+To grab these supplemental files you will need to manually specify them...we do this using a `MANIFEST.in` file
 
 ```bash
 $ cat ~/Developer/timeview/MANIFEST.in
 include timeview/manager/main.ui
 include timeview/manager/dataset.db
 recursive-include timeview *.json
+...
 ```
 
 ## MANIFEST Continued
 
-There's a tool for that... 
-
-Make sure all the file are added to your repository and then run:
+* There's a tool for that...
+* Make sure all the file are added to your repository and then run:
 
 ```bash
 $ pip install check-manifest
@@ -167,5 +179,32 @@ $ check-manifest --create
 $ python setup.py bdist_wheel sdist
 ...
 $ ls dist/
-...
+adj_matrix-ogi-0.0.1.tar.gz  # source distribution
+adj_matrix_ogi-0.0.1-py3-none-any.whl  # wheel distribution
 ```
+
+## Deploy to PyPI
+
+* create account at PyPI
+* install twine via pip
+* follow instructions from docs
+    ```bash
+    $ pip install twine
+    ...
+    $ twine upload dist/
+    ...
+    ```
+
+## You Said There Would be Reproducibility
+
+Creator did not guarantee anything about users environment
+
+## pipenv
+
+* `pipenv` is a tool that merged `virtualenv` along with `pip`
+* `virtualenv` is a tool for creating isolated python environments
+* the `virtualenv` is deterministic
+    * by deterministic I mean your dependencies will be at a pinned version
+    * your dependencies dependencies will be at a pinned version
+
+## 

@@ -118,7 +118,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="fragment">why publish?</li>
 <li class="fragment"><code>setuptools</code> (<code>setup.py</code>)</li>
 <li class="fragment"><code>pipenv</code></li>
-<li class="fragment"><code>filt</code> (<code>pyproject.toml</code>)</li>
+<li class="fragment"><code>flit</code> (<code>pyproject.toml</code>)</li>
 <li class="fragment">PyPI distribution</li>
 </ul>
 </div>
@@ -212,8 +212,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb2-24" data-line-number="24">    author_email<span class="op">=</span><span class="st">&quot;ognyan.moore@gmail.com&quot;</span></a>
 <a class="sourceLine" id="cb2-25" data-line-number="25">    )</a></code></pre></div>
 </section>
-<section id="does-it-work" class="slide level2">
-<h2>Does It Work?</h2>
+<section id="verify-it-works" class="slide level2">
+<h2>Verify It Works</h2>
 <div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb3-1" data-line-number="1">$ <span class="ex">pip</span> install -e .</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="ex">...</span></a>
 <a class="sourceLine" id="cb3-3" data-line-number="3">$ <span class="ex">python</span></a>
@@ -226,6 +226,55 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb3-10" data-line-number="10">       [<span class="ex">1.41421356</span>, 0.        , 1.41421356],</a>
 <a class="sourceLine" id="cb3-11" data-line-number="11">       [<span class="ex">2.82842712</span>, 1.41421356, 0.        ]])</a>
 <a class="sourceLine" id="cb3-12" data-line-number="12"><span class="op">&gt;&gt;&gt;</span></a></code></pre></div>
+</section>
+<section id="private-deployment" class="slide level2">
+<h2>Private Deployment</h2>
+<p>At this point, if the source code is on a remote git repository, it’s installable via pip by someone else!</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb4-1" data-line-number="1">$ <span class="ex">pip</span> install git+git://github.com/j9ac9k/timeview#egg=timeview</a></code></pre></div>
+</section>
+<section id="creating-binary-distribution" class="slide level2">
+<h2>Creating Binary Distribution</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb5-1" data-line-number="1">$ <span class="ex">python</span> setup.py bdist_wheel</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="ex">...</span></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">$ <span class="fu">ls</span> dist</a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="ex">adj_matrix_ogi-0.0.1-py3-none-any.whl</span></a></code></pre></div>
+<p>This creates a binary distribution, also known as a <code>wheel</code>, which is usually what PyPI distributes.</p>
+</section>
+<section id="creating-source-distribution" class="slide level2">
+<h2>Creating Source Distribution</h2>
+<p>Source distributions are effectively like an archive of everything in the source code repository, including the license file, supplemental data, <code>setup.py</code> and so on. By default <code>setuptools</code> ignores these files.</p>
+<p>To grab these supplemental files you will need to manually specify them…we do this using a <code>MANIFEST.in</code> file</p>
+</section>
+<section id="manifest.in" class="slide level2">
+<h2>MANIFEST.in</h2>
+<p>Example from TimeView</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb6-1" data-line-number="1">$ <span class="fu">cat</span> ~/Developer/timeview/MANIFEST.in</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="ex">include</span> timeview/manager/main.ui</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="ex">include</span> timeview/manager/dataset.db</a>
+<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="ex">recursive-include</span> timeview *.json</a></code></pre></div>
+</section>
+<section id="manifest-continued" class="slide level2">
+<h2>MANIFEST Continued</h2>
+<p>There’s a tool for that…</p>
+<p>Make sure all the file are added to your repository and then run:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb7-1" data-line-number="1">$ <span class="ex">pip</span> install check-manifest</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="ex">...</span></a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">$ <span class="ex">check-manifest</span> --create</a></code></pre></div>
+</section>
+<section id="verify-successful-build" class="slide level2">
+<h2>Verify Successful Build</h2>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb8-1" data-line-number="1">$ <span class="ex">python</span> setup.py bdist_wheel sdist</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="ex">...</span></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3">$ <span class="fu">ls</span> dist/</a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="ex">adj_matrix-ogi-0.0.1.tar.gz</span>           adj_matrix_ogi-0.0.1-py3-none-any.whl</a></code></pre></div>
+</section>
+<section id="deploy-to-pypi" class="slide level2">
+<h2>Deploy to PyPI</h2>
+<ul>
+<li>create account at PyPI</li>
+<li>install twine via pip</li>
+<li>follow instructions from docs <code>bash   $ pip install twine   ...   $ twine upload dist/</code></li>
+</ul>
 </section>
     </div>
   </div>
