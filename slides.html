@@ -91,9 +91,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <!--[if lt IE 9]>
   <script src="./reveal.js/lib/js/html5shiv.js"></script>
   <![endif]-->
-  
-  
-  
 </head>
 <body>
   <div class="reveal">
@@ -135,10 +132,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>copy and paste is just not a valid method of sharing code</li>
 </ul>
 </section>
-<section id="most-importantly" class="slide level2">
-<h2>Most Importantly</h2>
-<p>Every time you publish you make the ecosystem better</p>
-</section>
 <section id="my-motivation" class="slide level2">
 <h2>My Motivation</h2>
 <ul>
@@ -167,12 +160,72 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2>More Boilerplate</h2>
 <ul>
 <li>get an appropriate <code>.gitignore</code> file from https://gitignore.io</li>
-<li>assign a software license if unsure take a look at https://choosealicence.com</li>
-<li>create a <code>README.md</code> file</li>
+<li>assign a software license - if unsure take a look at https://choosealicence.com</li>
+<li>create a readme file</li>
 </ul>
 <figure>
 <img data-src="./images/more_boilerplate.png" title="Adding More Boilerplate" alt="More Boilerplate" /><figcaption>More Boilerplate</figcaption>
 </figure>
+</section>
+<section id="different-methods-to-package" class="slide level2">
+<h2>Different Methods to Package</h2>
+<ul>
+<li><code>setuptools</code> with a <code>setup.py</code> to create a pip installable package</li>
+<li><code>filt</code> with <code>pyproject.toml</code> to create a pip installable package</li>
+<li><code>pipenv</code> with a <code>Pipfile</code> to create a reproducible python environment</li>
+<li><code>conda-skeleton</code> to create a <code>conda</code> installable package</li>
+</ul>
+</section>
+<section id="setuptools" class="slide level2">
+<h2>setuptools</h2>
+<ul>
+<li>Most common method of packaging</li>
+<li>Not part of the standard library, but comes with <code>pip</code> so you likely already have it</li>
+<li>Create <code>setup.py</code> and configure it to install things the way you want them to</li>
+</ul>
+</section>
+<section id="basic-setup.py" class="slide level2">
+<h2>Basic <code>setup.py</code></h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="im">from</span> setuptools <span class="im">import</span> setup</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="cf">with</span> <span class="bu">open</span>(<span class="st">&quot;README.md&quot;</span>, <span class="st">&quot;r&quot;</span>) <span class="im">as</span> fh:</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">    long_description <span class="op">=</span> fh.read()</a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6">setup(</a>
+<a class="sourceLine" id="cb2-7" data-line-number="7">    name<span class="op">=</span><span class="st">&quot;adj_matrix-ogi&quot;</span>,</a>
+<a class="sourceLine" id="cb2-8" data-line-number="8">    version<span class="op">=</span><span class="st">&quot;0.0.1&quot;</span>,</a>
+<a class="sourceLine" id="cb2-9" data-line-number="9">    install_requires<span class="op">=</span>[<span class="st">&#39;scipy&#39;</span>],</a>
+<a class="sourceLine" id="cb2-10" data-line-number="10">    description<span class="op">=</span><span class="st">&quot;Computed Adjacency Matrix From a List of Points&quot;</span>,</a>
+<a class="sourceLine" id="cb2-11" data-line-number="11">    py_modules<span class="op">=</span>[<span class="st">&quot;adj_matrix&quot;</span>],</a>
+<a class="sourceLine" id="cb2-12" data-line-number="12">    package_dir<span class="op">=</span>{<span class="st">&quot;&quot;</span>: <span class="st">&quot;src&quot;</span>},</a>
+<a class="sourceLine" id="cb2-13" data-line-number="13">    long_description<span class="op">=</span>long_description,</a>
+<a class="sourceLine" id="cb2-14" data-line-number="14">    long_description_content_type<span class="op">=</span><span class="st">&quot;text/markdown&quot;</span>,</a>
+<a class="sourceLine" id="cb2-15" data-line-number="15">    classifiers<span class="op">=</span>[</a>
+<a class="sourceLine" id="cb2-16" data-line-number="16">        <span class="st">&quot;Programming Language :: Python :: 3&quot;</span>,</a>
+<a class="sourceLine" id="cb2-17" data-line-number="17">        <span class="st">&quot;Programming Language :: Python :: 3.6&quot;</span>,</a>
+<a class="sourceLine" id="cb2-18" data-line-number="18">        <span class="st">&quot;Programming Language :: Python :: 3.7&quot;</span>,</a>
+<a class="sourceLine" id="cb2-19" data-line-number="19">        <span class="st">&quot;License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)&quot;</span>,</a>
+<a class="sourceLine" id="cb2-20" data-line-number="20">        <span class="st">&quot;Operating System :: OS Independent&quot;</span>,</a>
+<a class="sourceLine" id="cb2-21" data-line-number="21">    ],</a>
+<a class="sourceLine" id="cb2-22" data-line-number="22">    url<span class="op">=</span><span class="st">&quot;https://github.com/j9ac9k/adj_matrix&quot;</span>,</a>
+<a class="sourceLine" id="cb2-23" data-line-number="23">    author<span class="op">=</span><span class="st">&quot;Ogi Moore&quot;</span>,</a>
+<a class="sourceLine" id="cb2-24" data-line-number="24">    author_email<span class="op">=</span><span class="st">&quot;ognyan.moore@gmail.com&quot;</span></a>
+<a class="sourceLine" id="cb2-25" data-line-number="25">    )</a></code></pre></div>
+</section>
+<section id="does-it-work" class="slide level2">
+<h2>Does It Work?</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb3-1" data-line-number="1">$ <span class="ex">pip</span> install -e .</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="ex">...</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">$ <span class="ex">python</span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="ex">Python</span> 3.7.0 (default, Jul 26 2018, 12:04:38)</a>
+<a class="sourceLine" id="cb3-5" data-line-number="5">[<span class="ex">Clang</span> 9.1.0 (clang-902.0.39.2)] <span class="ex">on</span> darwin</a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="ex">Type</span> <span class="st">&quot;help&quot;</span>, <span class="st">&quot;copyright&quot;</span>, <span class="st">&quot;credits&quot;</span> or <span class="st">&quot;license&quot;</span> for more information.</a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="op">&gt;&gt;&gt;</span> <span class="ex">from</span> adj_matrix import make_adj_matrix</a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="op">&gt;&gt;&gt;</span> <span class="ex">make_adj_matrix</span>([[0, 0], [1, 1], [2, 2]])</a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="ex">array</span>([[0.        , 1.41421356, 2.82842712],</a>
+<a class="sourceLine" id="cb3-10" data-line-number="10">       [<span class="ex">1.41421356</span>, 0.        , 1.41421356],</a>
+<a class="sourceLine" id="cb3-11" data-line-number="11">       [<span class="ex">2.82842712</span>, 1.41421356, 0.        ]])</a>
+<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="op">&gt;&gt;&gt;</span></a></code></pre></div>
 </section>
     </div>
   </div>

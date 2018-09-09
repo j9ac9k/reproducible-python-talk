@@ -22,4 +22,4 @@ clean-pyc: ## remove Python file artifacts
 	find . -name '__pycache__' -exec rm -fr {} +
 
 slides: ## create slides
-	/usr/local/bin/pandoc -t revealjs -s -o slides.html slides.md -V revealjs-url=./reveal.js -V theme=beige --filter pandoc-latex-tip
+	/usr/local/bin/pandoc -t revealjs -s -o slides.html slides.md -V revealjs-url=./reveal.js -V theme=beige
