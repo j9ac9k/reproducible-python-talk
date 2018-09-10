@@ -79,7 +79,7 @@ code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="./reveal.js/css/theme/beige.css" id="theme">
+  <link rel="stylesheet" href="./reveal.js/css/theme/sky.css" id="theme">
   <!-- Printing and PDF exports -->
   <script>
     var link = document.createElement( 'link' );
@@ -106,7 +106,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2>Who Am I</h2>
 <p><span class="citation" data-cites="ogimoore">@ogimoore</span></p>
 <p>Graduating C.S Student</p>
-<p>Software Engineer at BioSpeech (hi Jan)</p>
+<p>Software Engineer at BioSpeech</p>
 <p>TimeView Developer</p>
 </section>
 <section id="topics" class="slide level2">
@@ -160,6 +160,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>assign a license - if unsure take a look at https://choosealicence.com</li>
 <li>create a readme file</li>
 </ul>
+<aside class="notes">
+<p>assigning license is important because …</p>
+</aside>
 <figure>
 <img data-src="./images/more_boilerplate.png" alt="Adding Other Files" /><figcaption>Adding Other Files</figcaption>
 </figure>
@@ -177,13 +180,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="distutils" class="slide level2">
 <h2><code>distutils</code></h2>
+<div>
 <ul>
-<li>Part of the standard library</li>
-<li>Largely falling out of fashion
+<li class="fragment">Part of the standard library</li>
+<li class="fragment">Largely falling out of fashion
 <ul>
-<li>Even the official docs refer developers to other options such as …</li>
+<li class="fragment">Even the official docs refer developers to other options such as …</li>
 </ul></li>
 </ul>
+</div>
+<aside class="notes">
+<p>periodically see reference to it</p>
+</aside>
 </section>
 <section id="setuptools" class="slide level2">
 <h2><code>setuptools</code></h2>
@@ -239,6 +247,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb3-10" data-line-number="10">       [<span class="ex">1.41421356</span>, 0.        , 1.41421356],</a>
 <a class="sourceLine" id="cb3-11" data-line-number="11">       [<span class="ex">2.82842712</span>, 1.41421356, 0.        ]])</a>
 <a class="sourceLine" id="cb3-12" data-line-number="12"><span class="op">&gt;&gt;&gt;</span></a></code></pre></div>
+<aside class="notes">
+<p>discuss -e</p>
+</aside>
 </section>
 <section id="private-deployment" class="slide level2">
 <h2>Private Deployment</h2>
@@ -246,6 +257,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb4-1" data-line-number="1">$ <span class="ex">pip</span> install \</a>
 <a class="sourceLine" id="cb4-2" data-line-number="2">git+git://github.com/j9ac9k/adj_matrix#egg=adj_matrix</a>
 <a class="sourceLine" id="cb4-3" data-line-number="3"><span class="ex">...</span></a></code></pre></div>
+<aside class="notes">
+<ul>
+<li>pip supports installation from git repositories</li>
+<li>great for keeping content somewhat private</li>
+</ul>
+</aside>
 </section>
 <section id="creating-binary-distribution" class="slide level2">
 <h2>Creating Binary Distribution</h2>
@@ -269,10 +286,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="source-archive-continued" class="slide level2">
 <h2>Source Archive Continued</h2>
-<p>::: incremental</p>
+<div>
 <ul>
-<li><code>pip</code> defaults to install wheels but falls back to source archives</li>
+<li class="fragment"><code>pip</code> defaults to install wheels but falls back to source archives</li>
+<li class="fragment">great for allowing others to audit source code</li>
+<li class="fragment">other tools (such as conda-skeleton) use these</li>
 </ul>
+</div>
 </section>
 <section id="manifest.in" class="slide level2">
 <h2>MANIFEST.in</h2>
@@ -282,25 +302,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb6-3" data-line-number="3"><span class="ex">include</span> timeview/manager/dataset.db</a>
 <a class="sourceLine" id="cb6-4" data-line-number="4"><span class="ex">recursive-include</span> timeview *.json</a>
 <a class="sourceLine" id="cb6-5" data-line-number="5"><span class="ex">...</span></a></code></pre></div>
-</section>
-<section id="manifest-continued" class="slide level2">
-<h2>MANIFEST Continued</h2>
+<aside class="notes">
 <ul>
-<li>There’s a tool for that…</li>
-<li>Make sure all the file are added to your repository and then run:</li>
+<li>files are annoying to create easy to make mistakes</li>
+<li>can have this file generated automatically using check-manifest python library</li>
 </ul>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb7-1" data-line-number="1">$ <span class="ex">pip</span> install check-manifest</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="ex">...</span></a>
-<a class="sourceLine" id="cb7-3" data-line-number="3">$ <span class="ex">check-manifest</span> --create</a>
-<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="ex">...</span></a></code></pre></div>
+</aside>
 </section>
 <section id="verify-successful-build" class="slide level2">
 <h2>Verify Successful Build</h2>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb8-1" data-line-number="1">$ <span class="ex">python</span> setup.py bdist_wheel sdist</a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="ex">...</span></a>
-<a class="sourceLine" id="cb8-3" data-line-number="3">$ <span class="fu">ls</span> dist/</a>
-<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="ex">adj_matrix-ogi-0.0.1.tar.gz</span>  # source</a>
-<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="ex">adj_matrix_ogi-0.0.1-py3-none-any.whl</span>  # wheel</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb7-1" data-line-number="1">$ <span class="ex">python</span> setup.py bdist_wheel sdist</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="ex">...</span></a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">$ <span class="fu">ls</span> dist/</a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="ex">adj_matrix-ogi-0.0.1.tar.gz</span>  # source</a>
+<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="ex">adj_matrix_ogi-0.0.1-py3-none-any.whl</span>  # wheel</a></code></pre></div>
+<aside class="notes">
+<p>can open up the source file and verify contents if uncertain</p>
+</aside>
 </section>
 <section id="deploy-to-pypi" class="slide level2">
 <h2>Deploy to PyPI</h2>
@@ -309,10 +327,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>install twine</li>
 <li>follow instructions from docs</li>
 </ul>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb9-1" data-line-number="1">$ <span class="ex">pip</span> install twine</a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="ex">...</span></a>
-<a class="sourceLine" id="cb9-3" data-line-number="3">$ <span class="ex">twine</span> upload dist/</a>
-<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="ex">...</span></a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb8-1" data-line-number="1">$ <span class="ex">pip</span> install twine</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="ex">...</span></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3">$ <span class="ex">twine</span> upload dist/</a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="ex">...</span></a></code></pre></div>
+<aside class="notes">
+<p>official docs are seriously good</p>
+</aside>
 </section>
 <section id="flit" class="slide level2">
 <h2><code>Flit</code></h2>
@@ -333,6 +354,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="fragment">able to publish to PyPI</li>
 </ul>
 </div>
+<aside class="notes">
+<ul>
+<li><code>pyproject.toml</code> appears to be where python is going but it’s not there yet</li>
+<li>many popular libraries still do not support it (such as pytest)</li>
+<li>you can still use <code>pyproject.toml</code> partly, it’s not all or nothing</li>
+<li>timeview uses it to store some settings</li>
+</ul>
+</aside>
 </section>
 <section id="enough-about-packaging" class="slide level2">
 <h2>Enough About Packaging</h2>
@@ -345,23 +374,43 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><code>virtualenv</code> is a tool that creates an isolated python environment from a reference</li>
 </ul>
-<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb10-1" data-line-number="1">$ <span class="ex">virtualenv</span> -p /usr/bin/python2.7 my_project</a>
-<a class="sourceLine" id="cb10-2" data-line-number="2">$ <span class="bu">source</span> my_project/bin/activate</a>
-<a class="sourceLine" id="cb10-3" data-line-number="3">$ <span class="ex">pip</span> install scipy</a>
-<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="ex">...</span></a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb9-1" data-line-number="1">$ <span class="ex">virtualenv</span> -p /usr/bin/python2.7 my_project</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2">$ <span class="bu">source</span> my_project/bin/activate</a>
+<a class="sourceLine" id="cb9-3" data-line-number="3">$ <span class="ex">pip</span> install scipy</a>
+<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="ex">...</span></a></code></pre></div>
 <p><code>scipy</code> would be installed; but will not be accessible from outside this virtual environment</p>
+<aside class="notes">
+<ul>
+<li>virtualenv does not bring its own python executable</li>
+<li>what if you want an older version of python?
+<ul>
+<li>for this we have pyenv, but we don’t have all day here…</li>
+</ul></li>
+<li>conda-env environments come along with their own python executable</li>
+</ul>
+</aside>
 </section>
 <section id="pipenv" class="slide level2">
 <h2><code>pipenv</code></h2>
 <h3 id="the-new-shiny-thing-right-now">the new shiny thing right now</h3>
 <ul>
-<li><code>pipenv</code> is a tool that merged <code>virtualenv</code> along with <code>pip</code></li>
+<li><code>pipenv</code> is a tool that merges <code>virtualenv</code> along with <code>pip</code></li>
 <li>most commands can be run as it were pip
 <ul>
-<li><code>pipenv install -e .</code></li>
+<li><code>pipenv install -dev -e .</code></li>
 <li><code>pipenv install git+git...</code></li>
 </ul></li>
 </ul>
+<aside class="notes">
+<ul>
+<li>again we see the <code>-e</code> component</li>
+<li>discus <code>-dev</code></li>
+<li>hard to interacted with directly <code>pipenv run ...</code>
+<ul>
+<li>if you want to do execute the python interpreter directly run <code>pipenv run python</code></li>
+</ul></li>
+</ul>
+</aside>
 </section>
 <section id="pipfile-pipfile.lock" class="slide level2">
 <h2><code>Pipfile</code> &amp; <code>Pipfile.lock</code></h2>
@@ -376,7 +425,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>specific versions of all dependencies in dependency graph</li>
 </ul></li>
 </ul>
-<p><code>pipenv</code> does <em>not</em> need <code>setup.py</code></p>
+<aside class="notes">
+<p>Discuss Difference Between Library and Application</p>
+<ul>
+<li>Library is meant to be imported on a variety of platforms
+<ul>
+<li>not great for pipenv</li>
+</ul></li>
+<li>Applications is the main point of interaction
+<ul>
+<li>works better for pipenv</li>
+</ul></li>
+<li>your code does not need setup.py/installable</li>
+</ul>
+</aside>
 </section>
 <section id="pipfile" class="slide level2">
 <h2><code>Pipfile</code></h2>
@@ -390,9 +452,12 @@ scipy = &quot;&gt;=1.1.0&quot;
 
 [dev-packages]
 pytest = &quot;&gt;=3.7.0&quot;</code></pre>
+<aside class="notes">
+<p>dev-dependencies are installed only when adding the -dev tag on pipenv install</p>
+</aside>
 </section>
 <section id="pipfile-setup.py" class="slide level2">
-<h2><code>Pipfile</code> &amp; <code>setup.py</code></h2>
+<h2><code>Pipfile + setup.py</code></h2>
 <p>Suggested usage</p>
 <ul>
 <li><code>Pipfile</code> and <code>Pipefile.lock</code> for collaborators
@@ -405,7 +470,11 @@ pytest = &quot;&gt;=3.7.0&quot;</code></pre>
 <li>Most end users will install via PyPI</li>
 </ul></li>
 </ul>
-<p><code>pipenv</code> docs go into more detail</p>
+<aside class="notes">
+<ul>
+<li><code>pipenv</code> docs go into more detail</li>
+</ul>
+</aside>
 <!-- ## `poetry`
 
 * Alternative to `pipenv`
@@ -423,6 +492,7 @@ pytest = &quot;&gt;=3.7.0&quot;</code></pre>
 <li><code>bumpversion</code></li>
 <li><code>mypy</code></li>
 <li><code>flake8</code></li>
+<li><code>sphinx</code></li>
 </ul>
 </div><div class="column" style="width:50%;">
 <ul>
@@ -430,20 +500,21 @@ pytest = &quot;&gt;=3.7.0&quot;</code></pre>
 <li><code>black</code></li>
 <li><code>.travis.yml</code></li>
 <li><code>appveyor.cfg</code></li>
+<li><code>contributing.md</code></li>
 </ul>
 </div>
 </div>
 </section>
-<section id="now-forget-everything-i-just-said" class="slide level2">
-<h2>Now Forget Everything I Just Said</h2>
+<section id="now-forget-do-not-worry-about-remembering-everything-i-just-said" class="slide level2">
+<h2>Now <del>Forget</del> Do Not Worry About Remembering Everything I Just Said</h2>
 </section>
-<section id="okay-dont-forget-but-keep-it-in-mind" class="slide level2">
-<h2>Okay, Don’t Forget But Keep It In Mind</h2>
+<section id="keep-it-in-mind" class="slide level2">
+<h2>Keep It In Mind</h2>
 <div>
 <ul>
 <li class="fragment">Doing all these manual file configurations is tedious</li>
 <li class="fragment">We are likely to make a mistake somewhere along the way</li>
-<li class="fragment">Developers are lazy, surely there is a way we can automate this…</li>
+<li class="fragment"><del>Developers are</del> I am lazy, surely there is a way we can automate this…</li>
 </ul>
 </div>
 </section>
@@ -452,7 +523,7 @@ pytest = &quot;&gt;=3.7.0&quot;</code></pre>
 <ul>
 <li>you give cookiecutter a template</li>
 <li>cookiecutter asks you a series of questions</li>
-<li>all the boilerplate is created for you</li>
+<li>it creates most of the boiler plate for you</li>
 </ul>
 </section>
 <section id="cookiecutter-pypackage" class="slide level2">
@@ -472,24 +543,70 @@ pytest = &quot;&gt;=3.7.0&quot;</code></pre>
 </section>
 <section id="other-templates" class="slide level2">
 <h2>Other Templates</h2>
+<div>
 <ul>
-<li>templates for R projects</li>
-<li>templates for data science projects</li>
-<li>templates for latex/xetex projects</li>
-<li>templates for creating cookiecutter templates</li>
+<li class="fragment">templates for R projects</li>
+<li class="fragment">templates for data science projects</li>
+<li class="fragment">templates for latex projects</li>
+<li class="fragment">templates for creating cookiecutter templates</li>
 </ul>
+</div>
+<aside class="notes">
+<p>use a template on a non-existent project to see how something works</p>
+</aside>
+</section>
+<section id="you-think-im-joking" class="slide level2">
+<h2>You Think I’m Joking?</h2>
+<figure>
+<img data-src="./images/templateForCreatingTemplate.png" alt="https://github.com/eviweb/cookiecutter-template" /><figcaption>https://github.com/eviweb/cookiecutter-template</figcaption>
+</figure>
+</section>
+<section id="create-your-own-template" class="slide level2">
+<h2>Create Your Own Template</h2>
+<ul>
+<li>Lots of fantastic documentation to create your own template</li>
+<li>Fork a similar template and make the changes</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>overkill for most people</li>
+<li>helpful where many projects that require similar configs (lab environment)</li>
+</ul>
+</aside>
 </section>
 <section id="well-do-it-live" class="slide level2">
 <h2>We’ll Do It Live!</h2>
+<aside class="notes">
+<ul>
+<li>https://github.com/audreyr/cookiecutter-pypackage</li>
+</ul>
+</aside>
 </section>
 <section id="references" class="slide level2">
 <h2>References</h2>
 <ul>
-<li><a href="https://python-packaging-tutorial.readthedocs.io/en/latest/">Sheer Joy of Packaging SciPy 2018 Tutorial</a></li>
 <li><a href="https://packaging.python.org/tutorials/packaging-projects/">Python Official Packaging Tutorial</a></li>
+<li><a href="https://python-packaging-tutorial.readthedocs.io/en/latest/">Sheer Joy of Packaging SciPy 2018 Tutorial</a></li>
 <li><a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a></li>
 <li><a href="https://www.youtube.com/watch?v=QgZ7qv4Cd0Y">@Judy2k Talk on Publishing to PyPI</a></li>
 </ul>
+<aside class="notes">
+<ul>
+<li>python official tutorial docs are great for your fist time through
+<ul>
+<li>they stick to a minimum working example</li>
+</ul></li>
+<li>scipy tutorial walks you through step by step
+<ul>
+<li>goes over making conda packages</li>
+</ul></li>
+<li>@judy2k talk was presented at a recent python conference</li>
+</ul>
+</aside>
+</section>
+<section id="questions" class="slide level2">
+<h2>Questions?</h2>
+<p>https://j9ac9k.github.io/reproducible-python-talk</p>
 </section>
     </div>
   </div>

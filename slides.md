@@ -9,7 +9,7 @@ date: September 11, 2018
 
 Graduating C.S Student
 
-Software Engineer at BioSpeech (hi Jan)
+Software Engineer at BioSpeech
 
 TimeView Developer
 
@@ -62,11 +62,17 @@ def make_adj_matrix(points):
 * assign a license - if unsure take a look at https://choosealicence.com
 * create a readme file
 
+::: notes
+
+assigning license is important because ...
+
+:::
+
 ![Adding Other Files](./images/more_boilerplate.png "")
 
 ## Different Methods to Package
 
-:::incremental
+::: incremental
 
 * `setuptools` with a `setup.py` to create a pip installable package
 * `flit` with `pyproject.toml` to create a pip installable package
@@ -77,9 +83,19 @@ def make_adj_matrix(points):
 
 ## `distutils`
 
+::: incremental
+
 * Part of the standard library
 * Largely falling out of fashion
   * Even the official docs refer developers to other options such as ...
+
+:::
+
+::: notes
+
+periodically see reference to it
+
+:::
 
 ## `setuptools`
 
@@ -136,6 +152,11 @@ array([[0.        , 1.41421356, 2.82842712],
 >>>
 ```
 
+::: notes
+
+discuss -e
+
+:::
 ## Private Deployment
 
 At this point, if the source code is on a remote git repository, it's installable via pip by someone else!
@@ -145,6 +166,13 @@ $ pip install \
 git+git://github.com/j9ac9k/adj_matrix#egg=adj_matrix
 ...
 ```
+
+::: notes
+
+* pip supports installation from git repositories
+* great for keeping content somewhat private
+
+:::
 
 ## Creating Binary Distribution
 
@@ -174,6 +202,10 @@ By default `setuptools` ignores these files.
 ::: incremental
 
 * `pip` defaults to install wheels but falls back to source archives
+* great for allowing others to audit source code
+* other tools (such as conda-skeleton) use these
+
+:::
 
 ## MANIFEST.in
 
@@ -187,17 +219,12 @@ recursive-include timeview *.json
 ...
 ```
 
-## MANIFEST Continued
+::: notes
 
-* There's a tool for that...
-* Make sure all the file are added to your repository and then run:
+* files are annoying to create easy to make mistakes
+* can have this file generated automatically using check-manifest python library
 
-```bash
-$ pip install check-manifest
-...
-$ check-manifest --create
-...
-```
+:::
 
 ## Verify Successful Build
 
@@ -208,6 +235,12 @@ $ ls dist/
 adj_matrix-ogi-0.0.1.tar.gz  # source
 adj_matrix_ogi-0.0.1-py3-none-any.whl  # wheel
 ```
+
+::: notes
+
+can open up the source file and verify contents if uncertain
+
+:::
 
 ## Deploy to PyPI
 
@@ -222,9 +255,15 @@ $ twine upload dist/
 ...
 ```
 
+::: notes
+
+official docs are seriously good
+
+:::
+
 ## `Flit`
 
-:::incremental
+::: incremental
 
 * an alternative to `setuptools` and `twine`
 * makes use of a `pyproject.toml` file
@@ -234,6 +273,15 @@ $ twine upload dist/
   * `MANIFEST.in`
   * `<any>.ini  # various config files`  
 * able to publish to PyPI
+
+:::
+
+::: notes
+
+* `pyproject.toml` appears to be where python is going but it's not there yet
+* many popular libraries still do not support it (such as pytest)
+* you can still use `pyproject.toml` partly, it's not all or nothing
+* timeview uses it to store some settings
 
 :::
 
@@ -254,14 +302,32 @@ $ pip install scipy
 
 `scipy` would be installed; but will not be accessible from outside this virtual environment
 
+::: notes
+
+* virtualenv does not bring its own python executable
+* what if you want an older version of python?
+  * for this we have pyenv, but we don't have all day here...
+* conda-env environments come along with their own python executable
+
+:::
+
 ## `pipenv`
 
 ### the new shiny thing right now
 
-* `pipenv` is a tool that merged `virtualenv` along with `pip`
+* `pipenv` is a tool that merges `virtualenv` along with `pip`
 * most commands can be run as it were pip
-  * `pipenv install -e .`
+  * `pipenv install -dev -e .`
   * `pipenv install git+git...`
+
+::: notes
+
+* again we see the `-e` component
+* discus `-dev`
+* hard to interacted with directly  `pipenv run ...`
+  * if you want to do execute the python interpreter directly run `pipenv run python`
+
+:::
 
 ## `Pipfile` & `Pipfile.lock`
 
@@ -272,7 +338,17 @@ $ pip install scipy
 * `Pipfile.lock`
   * specific versions of all dependencies in dependency graph
 
-`pipenv` does *not* need `setup.py`
+::: notes
+
+Discuss Difference Between Library and Application
+
+* Library is meant to be imported on a variety of platforms
+  * not great for pipenv
+* Applications is the main point of interaction
+  * works better for pipenv
+* your code does not need setup.py/installable
+
+:::
 
 ## `Pipfile`
 
@@ -289,7 +365,13 @@ scipy = ">=1.1.0"
 pytest = ">=3.7.0"
 ```
 
-## `Pipfile` & `setup.py`
+::: notes
+
+dev-dependencies are installed only when adding the -dev tag on pipenv install
+
+:::
+
+## `Pipfile + setup.py`
 
 Suggested usage
 
@@ -299,7 +381,11 @@ Suggested usage
 * `setup.py` for target users
   * Most end users will install via PyPI
 
-`pipenv` docs go into more detail
+::: notes
+
+* `pipenv` docs go into more detail
+
+:::
 
 <!-- ## `poetry`
 
@@ -318,6 +404,7 @@ Suggested usage
 * `bumpversion`
 * `mypy`
 * `flake8`
+* `sphinx`
 
 :::
 ::: {.column width="50%"}
@@ -326,28 +413,28 @@ Suggested usage
 * `black`
 * `.travis.yml`
 * `appveyor.cfg`
+* `contributing.md`
 
 :::
 ::::::::::::::
 
-## Now Forget Everything I Just Said
+## Now ~~Forget~~ Do Not Worry About Remembering Everything I Just Said
 
-## Okay, Don't Forget But Keep It In Mind
+## Keep It In Mind
 
 ::: incremental
 
 * Doing all these manual file configurations is tedious
 * We are likely to make a mistake somewhere along the way
-* Developers are lazy, surely there is a way we can automate this...
+* ~~Developers are~~ I am lazy, surely there is a way we can automate this...
 
 :::
 
 ## ![ ](./images/cookiecutter.png)
 
-
 * you give cookiecutter a template
 * cookiecutter asks you a series of questions
-* all the boilerplate is created for you
+* it creates most of the boiler plate for you
 
 ## cookiecutter-pypackage
 
@@ -368,16 +455,62 @@ Makes the following ready to go
 
 ## Other Templates
 
+::: incremental
+
 * templates for R projects
 * templates for data science projects
-* templates for latex/xetex projects
+* templates for latex projects
 * templates for creating cookiecutter templates
+
+:::
+
+::: notes
+
+use a template on a non-existent project to see how something works
+
+:::
+
+## You Think I'm Joking?
+
+![https://github.com/eviweb/cookiecutter-template](./images/templateForCreatingTemplate.png "")
+
+## Create Your Own Template
+
+* Lots of fantastic documentation to create your own template
+* Fork a similar template and make the changes
+
+::: notes
+
+* overkill for most people
+* helpful where many projects that require similar configs (lab environment)
+
+:::
 
 ## We'll Do It Live!
 
+::: notes
+
+* https://github.com/audreyr/cookiecutter-pypackage
+
+:::
+
 ## References
 
-* [Sheer Joy of Packaging SciPy 2018 Tutorial](https://python-packaging-tutorial.readthedocs.io/en/latest/)
 * [Python Official Packaging Tutorial](https://packaging.python.org/tutorials/packaging-projects/)
+* [Sheer Joy of Packaging SciPy 2018 Tutorial](https://python-packaging-tutorial.readthedocs.io/en/latest/)
 * [Cookiecutter](https://github.com/audreyr/cookiecutter)
 * [\@Judy2k Talk on Publishing to PyPI](https://www.youtube.com/watch?v=QgZ7qv4Cd0Y)
+
+::: notes
+
+* python official tutorial docs are great for your fist time through
+  * they stick to a minimum working example
+* scipy tutorial walks you through step by step
+  * goes over making conda packages
+* \@judy2k talk was presented at a recent python conference
+
+:::
+
+## Questions?
+
+https://j9ac9k.github.io/reproducible-python-talk
