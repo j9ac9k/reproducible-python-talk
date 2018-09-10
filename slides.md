@@ -228,14 +228,17 @@ By default `setuptools` ignores these files.
 
 ## MANIFEST.in
 
-To grab the supplemental files (README.md, LICENCE.txt, etc) you will need to manually specify them in a `MANIFEST.in` file
+To grab the supplemental files, such as changelog, images, etc you will need to manually specify them in a `MANIFEST.in` file
 
-```bash
-$ cat ~/Developer/timeview/MANIFEST.in
-include timeview/manager/main.ui
-include timeview/manager/dataset.db
-recursive-include timeview *.json
-...
+```
+include AUTHORS.rst
+include CONTRIBUTING.rst
+include HISTORY.rst
+
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co]
+
+recursive-include *.jpg *.png *.gif
 ```
 
 ::: notes
@@ -313,7 +316,7 @@ official docs are seriously good
 * `virtualenv` is a tool that creates an isolated python environment from a reference
 
 ```bash
-$ virtualenv -p /usr/bin/python2.7 my_project
+$ virtualenv -p /usr/local/bin/python3 my_project
 $ source my_project/bin/activate
 $ pip install scipy
 ...
@@ -557,22 +560,22 @@ $ pandoc slides.md -t revealjs \
 
 ::: notes
 
-had to download reveal.js and store locally
-used git submodule
+* had to download reveal.js and store locally
+* used git submodule
 
 :::
 
 ## How It's Made (Pt 3)
 
-Added files to github in `gh_pages` branch
-![ ](./images/github_repo.png "")
+Added files to github in `gh-pages` branch
 
+![ ](./images/github_repo.png "")
 
 ## How It's Made (Pt 4)
 
-* Enabling github pages
-![ ](./images/github_pages.png "")
+Enabling github pages
 
+![ ](./images/github_pages.png "")
 
 ## Questions?
 

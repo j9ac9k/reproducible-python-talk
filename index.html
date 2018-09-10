@@ -310,12 +310,15 @@ periodically see reference to it
 </section>
 <section id="manifest.in" class="slide level2">
 <h2>MANIFEST.in</h2>
-<p>To grab the supplemental files (README.md, LICENCE.txt, etc) you will need to manually specify them in a <code>MANIFEST.in</code> file</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb6-1" data-line-number="1">$ <span class="fu">cat</span> ~/Developer/timeview/MANIFEST.in</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="ex">include</span> timeview/manager/main.ui</a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="ex">include</span> timeview/manager/dataset.db</a>
-<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="ex">recursive-include</span> timeview *.json</a>
-<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="ex">...</span></a></code></pre></div>
+<p>To grab the supplemental files, such as changelog, images, etc you will need to manually specify them in a <code>MANIFEST.in</code> file</p>
+<pre><code>include AUTHORS.rst
+include CONTRIBUTING.rst
+include HISTORY.rst
+
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co]
+
+recursive-include *.jpg *.png *.gif</code></pre>
 <aside class="notes">
 <ul>
 <li>files are annoying to create easy to make mistakes</li>
@@ -388,7 +391,7 @@ periodically see reference to it
 <ul>
 <li><code>virtualenv</code> is a tool that creates an isolated python environment from a reference</li>
 </ul>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb9-1" data-line-number="1">$ <span class="ex">virtualenv</span> -p /usr/bin/python2.7 my_project</a>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb9-1" data-line-number="1">$ <span class="ex">virtualenv</span> -p /usr/local/bin/python3 my_project</a>
 <a class="sourceLine" id="cb9-2" data-line-number="2">$ <span class="bu">source</span> my_project/bin/activate</a>
 <a class="sourceLine" id="cb9-3" data-line-number="3">$ <span class="ex">pip</span> install scipy</a>
 <a class="sourceLine" id="cb9-4" data-line-number="4"><span class="ex">...</span></a></code></pre></div>
@@ -639,18 +642,21 @@ pytest = &quot;&gt;=3.7.0&quot;</code></pre>
 <a class="sourceLine" id="cb12-5" data-line-number="5">                   -V theme=beige \</a>
 <a class="sourceLine" id="cb12-6" data-line-number="6">                   -V slideNumber=true</a></code></pre></div>
 <aside class="notes">
-<p>had to download reveal.js and store locally used git submodule</p>
+<ul>
+<li>had to download reveal.js and store locally</li>
+<li>used git submodule</li>
+</ul>
 </aside>
 </section>
 <section id="how-its-made-pt-3" class="slide level2">
 <h2>How It’s Made (Pt 3)</h2>
-<p>Added files to github in <code>gh_pages</code> branch <img data-src="./images/github_repo.png" /></p>
+<p>Added files to github in <code>gh-pages</code> branch</p>
+<p><img data-src="./images/github_repo.png" /></p>
 </section>
 <section id="how-its-made-pt-4" class="slide level2">
 <h2>How It’s Made (Pt 4)</h2>
-<ul>
-<li>Enabling github pages <img data-src="./images/github_pages.png" /></li>
-</ul>
+<p>Enabling github pages</p>
+<p><img data-src="./images/github_pages.png" /></p>
 </section>
 <section id="questions" class="slide level2">
 <h2>Questions?</h2>
