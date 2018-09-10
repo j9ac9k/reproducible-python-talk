@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Ognyan Moore">
+  <meta name="dcterms.date" content="2018-09-11">
+  <title>Reproducible Python</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="http://lab.hakim.se/reveal-js/css/reveal.css">
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="http://lab.hakim.se/reveal-js/css/theme/beige.css" id="theme">
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? 'http://lab.hakim.se/reveal-js/css/print/pdf.css' : 'http://lab.hakim.se/reveal-js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="http://lab.hakim.se/reveal-js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">Reproducible Python</h1>
+  <p class="author">Ognyan Moore</p>
+  <p class="date">September 11, 2018</p>
+</section>
+
+<section id="who-am-i" class="slide level2">
+<h2>Who Am I</h2>
+<p><span class="citation" data-cites="ogimoore">@ogimoore</span></p>
+<p>Graduating C.S Student</p>
+<p>Software Engineer at BioSpeech (hi Jan)</p>
+<p>TimeView Developer</p>
+</section>
+<section id="topics" class="slide level2">
+<h2>Topics</h2>
+<figure>
+<img data-src="./images/works_on_my_machine.jpg" alt="source: derickbailey.com" /><figcaption>source: derickbailey.com</figcaption>
+</figure>
+</section>
+<section id="motivation" class="slide level2">
+<h2>Motivation</h2>
+<div>
+<ul>
+<li class="fragment">we want to share our code</li>
+<li class="fragment">we want confidence other users can run it</li>
+<li class="fragment">copy and paste is <em>not</em> a valid method of sharing code</li>
+</ul>
+</div>
+</section>
+<section id="personal-motivation" class="slide level2">
+<h2>Personal Motivation</h2>
+<div>
+<ul>
+<li class="fragment">Developed TimeView GUI application</li>
+<li class="fragment">~15 Dependencies</li>
+<li class="fragment">Over 8,000 lines of code</li>
+<li class="fragment">Different install process on each OS</li>
+<li class="fragment">Install method was unsafe</li>
+</ul>
+</div>
+</section>
+<section id="working-example" class="slide level2">
+<h2>Working Example</h2>
+<p>Let’s say we want to make this a package</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="im">from</span> scipy <span class="im">import</span> spatial</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">def</span> make_adj_matrix(points):</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">    <span class="cf">return</span> spatial.distance.squareform(</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">      spatial.distance.pdist(points)</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">    )</a></code></pre></div>
+</section>
+<section id="create-a-project-directory" class="slide level2">
+<h2>Create a Project Directory</h2>
+<figure>
+<img data-src="./images/basic_file.png" alt="Creating Source Directory" /><figcaption>Creating Source Directory</figcaption>
+</figure>
+</section>
+<section id="more-boilerplate" class="slide level2">
+<h2>More Boilerplate</h2>
+<ul>
+<li>find a <code>.gitignore</code> file from https://gitignore.io</li>
+<li>assign a license - if unsure take a look at https://choosealicence.com</li>
+<li>create a readme file</li>
+</ul>
+<figure>
+<img data-src="./images/more_boilerplate.png" alt="Adding Other Files" /><figcaption>Adding Other Files</figcaption>
+</figure>
+</section>
+<section id="different-methods-to-package" class="slide level2">
+<h2>Different Methods to Package</h2>
+<div>
+<ul>
+<li class="fragment"><code>setuptools</code> with a <code>setup.py</code> to create a pip installable package</li>
+<li class="fragment"><code>flit</code> with <code>pyproject.toml</code> to create a pip installable package</li>
+<li class="fragment"><code>pipenv</code> with a <code>Pipfile</code> to create a reproducible python environment</li>
+<li class="fragment"><code>conda-skeleton</code> to create a <code>conda</code> installable package</li>
+</ul>
+</div>
+</section>
+<section id="distutils" class="slide level2">
+<h2><code>distutils</code></h2>
+<ul>
+<li>Part of the standard library</li>
+<li>Largely falling out of fashion
+<ul>
+<li>Even the official docs refer developers to other options such as …</li>
+</ul></li>
+</ul>
+</section>
+<section id="setuptools" class="slide level2">
+<h2><code>setuptools</code></h2>
+<ul>
+<li>Most common method of packaging</li>
+<li>Not part of the standard library, but comes with <code>pip</code> so you likely already have it</li>
+<li>Create <code>setup.py</code>
+<ul>
+<li>configure it to install dependencies</li>
+<li>specify package metadata</li>
+</ul></li>
+</ul>
+</section>
+<section id="basic-setup.py" class="slide level2">
+<h2>Basic <code>setup.py</code></h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="im">from</span> setuptools <span class="im">import</span> setup</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="cf">with</span> <span class="bu">open</span>(<span class="st">&quot;README.md&quot;</span>, <span class="st">&quot;r&quot;</span>) <span class="im">as</span> fh:</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">    long_description <span class="op">=</span> fh.read()</a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6">setup(</a>
+<a class="sourceLine" id="cb2-7" data-line-number="7">    name<span class="op">=</span><span class="st">&quot;adj_matrix-ogi&quot;</span>,</a>
+<a class="sourceLine" id="cb2-8" data-line-number="8">    version<span class="op">=</span><span class="st">&quot;0.0.1&quot;</span>,  <span class="co"># really can be anything</span></a>
+<a class="sourceLine" id="cb2-9" data-line-number="9">    install_requires<span class="op">=</span>[<span class="st">&#39;scipy&#39;</span>],</a>
+<a class="sourceLine" id="cb2-10" data-line-number="10">    description<span class="op">=</span><span class="st">&quot;Computed Adjacency Matrix From a List of Points&quot;</span>,</a>
+<a class="sourceLine" id="cb2-11" data-line-number="11">    py_modules<span class="op">=</span>[<span class="st">&quot;adj_matrix&quot;</span>],</a>
+<a class="sourceLine" id="cb2-12" data-line-number="12">    package_dir<span class="op">=</span>{<span class="st">&quot;&quot;</span>: <span class="st">&quot;src&quot;</span>},</a>
+<a class="sourceLine" id="cb2-13" data-line-number="13">    long_description<span class="op">=</span>long_description,</a>
+<a class="sourceLine" id="cb2-14" data-line-number="14">    long_description_content_type<span class="op">=</span><span class="st">&quot;text/markdown&quot;</span>,</a>
+<a class="sourceLine" id="cb2-15" data-line-number="15">    classifiers<span class="op">=</span>[  <span class="co"># informative, not actually enforced!</span></a>
+<a class="sourceLine" id="cb2-16" data-line-number="16">        <span class="st">&quot;Programming Language :: Python :: 3&quot;</span>,</a>
+<a class="sourceLine" id="cb2-17" data-line-number="17">        <span class="st">&quot;Programming Language :: Python :: 3.6&quot;</span>,</a>
+<a class="sourceLine" id="cb2-18" data-line-number="18">        <span class="st">&quot;Programming Language :: Python :: 3.7&quot;</span>,</a>
+<a class="sourceLine" id="cb2-19" data-line-number="19">        <span class="st">&quot;License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)&quot;</span>,</a>
+<a class="sourceLine" id="cb2-20" data-line-number="20">        <span class="st">&quot;Operating System :: OS Independent&quot;</span>,</a>
+<a class="sourceLine" id="cb2-21" data-line-number="21">    ],</a>
+<a class="sourceLine" id="cb2-22" data-line-number="22">    url<span class="op">=</span><span class="st">&quot;https://github.com/j9ac9k/adj_matrix&quot;</span>,</a>
+<a class="sourceLine" id="cb2-23" data-line-number="23">    author<span class="op">=</span><span class="st">&quot;Ogi Moore&quot;</span>,</a>
+<a class="sourceLine" id="cb2-24" data-line-number="24">    author_email<span class="op">=</span><span class="st">&quot;ognyan.moore@gmail.com&quot;</span></a>
+<a class="sourceLine" id="cb2-25" data-line-number="25">    )</a></code></pre></div>
+</section>
+<section id="verify-it-works" class="slide level2">
+<h2>Verify It Works</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb3-1" data-line-number="1">$ <span class="ex">pip</span> install -e .</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="ex">...</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">$ <span class="ex">python</span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="ex">Python</span> 3.7.0 (default, Jul 26 2018, 12:04:38)</a>
+<a class="sourceLine" id="cb3-5" data-line-number="5">[<span class="ex">Clang</span> 9.1.0 (clang-902.0.39.2)] <span class="ex">on</span> darwin</a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="ex">Type</span> <span class="st">&quot;help&quot;</span>, <span class="st">&quot;copyright&quot;</span>, <span class="st">&quot;credits&quot;</span> or <span class="st">&quot;license&quot;</span> for more information.</a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="op">&gt;&gt;&gt;</span> <span class="ex">from</span> adj_matrix import make_adj_matrix</a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="op">&gt;&gt;&gt;</span> <span class="ex">make_adj_matrix</span>([[0, 0], [1, 1], [2, 2]])</a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="ex">array</span>([[0.        , 1.41421356, 2.82842712],</a>
+<a class="sourceLine" id="cb3-10" data-line-number="10">       [<span class="ex">1.41421356</span>, 0.        , 1.41421356],</a>
+<a class="sourceLine" id="cb3-11" data-line-number="11">       [<span class="ex">2.82842712</span>, 1.41421356, 0.        ]])</a>
+<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="op">&gt;&gt;&gt;</span></a></code></pre></div>
+</section>
+<section id="private-deployment" class="slide level2">
+<h2>Private Deployment</h2>
+<p>At this point, if the source code is on a remote git repository, it’s installable via pip by someone else!</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb4-1" data-line-number="1">$ <span class="ex">pip</span> install \</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">git+git://github.com/j9ac9k/adj_matrix#egg=adj_matrix</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="ex">...</span></a></code></pre></div>
+</section>
+<section id="creating-binary-distribution" class="slide level2">
+<h2>Creating Binary Distribution</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb5-1" data-line-number="1">$ <span class="ex">python</span> setup.py bdist_wheel</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="ex">...</span></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">$ <span class="fu">ls</span> dist/</a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="ex">adj_matrix_ogi-0.0.1-py3-none-any.whl</span></a>
+<a class="sourceLine" id="cb5-5" data-line-number="5">$</a></code></pre></div>
+<p>This creates a binary distribution, also known as a <code>wheel</code>, which is usually what PyPI distributes.</p>
+</section>
+<section id="creating-source-archive" class="slide level2">
+<h2>Creating Source Archive</h2>
+<p>Source archives are snapshots of the current library</p>
+<ul>
+<li><code>LICENSE.txt</code></li>
+<li>supplemental data</li>
+<li><code>setup.py</code></li>
+<li>and more!</li>
+</ul>
+<p>By default <code>setuptools</code> ignores these files.</p>
+</section>
+<section id="source-archive-continued" class="slide level2">
+<h2>Source Archive Continued</h2>
+<p>::: incremental</p>
+<ul>
+<li><code>pip</code> defaults to install wheels but falls back to source archives</li>
+</ul>
+</section>
+<section id="manifest.in" class="slide level2">
+<h2>MANIFEST.in</h2>
+<p>To grab these supplemental files you will need to manually specify them…we do this using a <code>MANIFEST.in</code> file</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb6-1" data-line-number="1">$ <span class="fu">cat</span> ~/Developer/timeview/MANIFEST.in</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="ex">include</span> timeview/manager/main.ui</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="ex">include</span> timeview/manager/dataset.db</a>
+<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="ex">recursive-include</span> timeview *.json</a>
+<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="ex">...</span></a></code></pre></div>
+</section>
+<section id="manifest-continued" class="slide level2">
+<h2>MANIFEST Continued</h2>
+<ul>
+<li>There’s a tool for that…</li>
+<li>Make sure all the file are added to your repository and then run:</li>
+</ul>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb7-1" data-line-number="1">$ <span class="ex">pip</span> install check-manifest</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="ex">...</span></a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">$ <span class="ex">check-manifest</span> --create</a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="ex">...</span></a></code></pre></div>
+</section>
+<section id="verify-successful-build" class="slide level2">
+<h2>Verify Successful Build</h2>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb8-1" data-line-number="1">$ <span class="ex">python</span> setup.py bdist_wheel sdist</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="ex">...</span></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3">$ <span class="fu">ls</span> dist/</a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="ex">adj_matrix-ogi-0.0.1.tar.gz</span>  # source</a>
+<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="ex">adj_matrix_ogi-0.0.1-py3-none-any.whl</span>  # wheel</a></code></pre></div>
+</section>
+<section id="deploy-to-pypi" class="slide level2">
+<h2>Deploy to PyPI</h2>
+<ul>
+<li>create account at PyPI</li>
+<li>install twine</li>
+<li>follow instructions from docs</li>
+</ul>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb9-1" data-line-number="1">$ <span class="ex">pip</span> install twine</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="ex">...</span></a>
+<a class="sourceLine" id="cb9-3" data-line-number="3">$ <span class="ex">twine</span> upload dist/</a>
+<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="ex">...</span></a></code></pre></div>
+</section>
+<section id="flit" class="slide level2">
+<h2><code>Flit</code></h2>
+<div>
+<ul>
+<li class="fragment">an alternative to <code>setuptools</code> and <code>twine</code></li>
+<li class="fragment">makes use of a <code>pyproject.toml</code> file
+<ul>
+<li class="fragment">part of a provisional PEP 518</li>
+</ul></li>
+<li class="fragment"><code>pyproject.toml</code> is designed to replace
+<ul>
+<li class="fragment"><code>setup.py</code></li>
+<li class="fragment"><code>MANIFEST.in</code></li>
+<li class="fragment"><code>&lt;any&gt;.ini  # various config files</code><br />
+</li>
+</ul></li>
+<li class="fragment">able to publish to PyPI</li>
+</ul>
+</div>
+</section>
+<section id="enough-about-packaging" class="slide level2">
+<h2>Enough About Packaging</h2>
+</section>
+<section id="you-said-there-would-be-reproducibility" class="slide level2">
+<h2>You Said There Would be Reproducibility</h2>
+</section>
+<section id="virtualenv" class="slide level2">
+<h2><code>virtualenv</code></h2>
+<ul>
+<li><code>virtualenv</code> is a tool that creates an isolated python environment from a reference</li>
+</ul>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb10-1" data-line-number="1">$ <span class="ex">virtualenv</span> -p /usr/bin/python2.7 my_project</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2">$ <span class="bu">source</span> my_project/bin/activate</a>
+<a class="sourceLine" id="cb10-3" data-line-number="3">$ <span class="ex">pip</span> install scipy</a>
+<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="ex">...</span></a></code></pre></div>
+<p><code>scipy</code> would be installed; but will not be accessible from outside this virtual environment</p>
+</section>
+<section id="pipenv" class="slide level2">
+<h2><code>pipenv</code></h2>
+<h3 id="the-new-shiny-thing-right-now">the new shiny thing right now</h3>
+<ul>
+<li><code>pipenv</code> is a tool that merged <code>virtualenv</code> along with <code>pip</code></li>
+<li>most commands can be run as it were pip
+<ul>
+<li><code>pipenv install -e .</code></li>
+<li><code>pipenv install git+git...</code></li>
+</ul></li>
+</ul>
+</section>
+<section id="pipfile-pipfile.lock" class="slide level2">
+<h2><code>Pipfile</code> &amp; <code>Pipfile.lock</code></h2>
+<p><code>pipenv</code> works from two primary files</p>
+<ul>
+<li><code>Pipfile</code>
+<ul>
+<li>list of dependencies with loose versioning requirements</li>
+</ul></li>
+<li><code>Pipfile.lock</code>
+<ul>
+<li>specific versions of all dependencies in dependency graph</li>
+</ul></li>
+</ul>
+<p><code>pipenv</code> does <em>not</em> need <code>setup.py</code></p>
+</section>
+<section id="pipfile" class="slide level2">
+<h2><code>Pipfile</code></h2>
+<pre class="toml"><code>[[source]]
+url = &quot;https://pypi.org/simple&quot;
+verify_ssl = true
+name = &quot;pypi&quot;
+
+[packages]
+scipy = &quot;&gt;=1.1.0&quot;
+
+[dev-packages]
+pytest = &quot;&gt;=3.7.0&quot;</code></pre>
+</section>
+<section id="pipfile-setup.py" class="slide level2">
+<h2><code>Pipfile</code> &amp; <code>setup.py</code></h2>
+<p>Suggested usage</p>
+<ul>
+<li><code>Pipfile</code> and <code>Pipefile.lock</code> for collaborators
+<ul>
+<li>They will be forced into the same python development environment you are on</li>
+<li>Good place to put dev requirements like <code>pytest</code>, <code>flake8</code>, etc</li>
+</ul></li>
+<li><code>setup.py</code> for target users
+<ul>
+<li>Most end users will install via PyPI</li>
+</ul></li>
+</ul>
+<p><code>pipenv</code> docs go into more detail</p>
+<!-- ## `poetry`
+
+* Alternative to `pipenv`
+* Not as actively developed as `pipenv`
+  * But still has ongoing development
+* Not as widely adopted as `pipenv`
+* No personal experience -->
+</section>
+<section id="bonus-points" class="slide level2">
+<h2>Bonus Points</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li><code>pytest</code></li>
+<li><code>bumpversion</code></li>
+<li><code>mypy</code></li>
+<li><code>flake8</code></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<ul>
+<li><code>pre-commit</code></li>
+<li><code>black</code></li>
+<li><code>.travis.yml</code></li>
+<li><code>appveyor.cfg</code></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="now-forget-everything-i-just-said" class="slide level2">
+<h2>Now Forget Everything I Just Said</h2>
+</section>
+<section id="okay-dont-forget-but-keep-it-in-mind" class="slide level2">
+<h2>Okay, Don’t Forget But Keep It In Mind</h2>
+<div>
+<ul>
+<li class="fragment">Doing all these manual file configurations is tedious</li>
+<li class="fragment">We are likely to make a mistake somewhere along the way</li>
+<li class="fragment">Developers are lazy, surely there is a way we can automate this…</li>
+</ul>
+</div>
+</section>
+<section id="section" class="slide level2">
+<h2><img data-src="./images/cookiecutter.png" /></h2>
+<ul>
+<li>you give cookiecutter a template</li>
+<li>cookiecutter asks you a series of questions</li>
+<li>all the boilerplate is created for you</li>
+</ul>
+</section>
+<section id="cookiecutter-pypackage" class="slide level2">
+<h2>cookiecutter-pypackage</h2>
+<p>https://github.com/audreyr/cookiecutter-pypackage</p>
+<p>Makes the following ready to go</p>
+<div>
+<ul>
+<li class="fragment">test suite</li>
+<li class="fragment">continuous integration</li>
+<li class="fragment">configures <code>tox</code></li>
+<li class="fragment">creates simple docs via sphinx</li>
+<li class="fragment">bumpversion</li>
+<li class="fragment">auto PyPI release on git-tag</li>
+</ul>
+</div>
+</section>
+<section id="other-templates" class="slide level2">
+<h2>Other Templates</h2>
+<ul>
+<li>templates for R projects</li>
+<li>templates for data science projects</li>
+<li>templates for latex/xetex projects</li>
+<li>templates for creating cookiecutter templates</li>
+</ul>
+</section>
+<section id="well-do-it-live" class="slide level2">
+<h2>We’ll Do It Live!</h2>
+</section>
+<section id="references" class="slide level2">
+<h2>References</h2>
+<ul>
+<li><a href="https://python-packaging-tutorial.readthedocs.io/en/latest/">Sheer Joy of Packaging SciPy 2018 Tutorial</a></li>
+<li><a href="https://packaging.python.org/tutorials/packaging-projects/">Python Official Packaging Tutorial</a></li>
+<li><a href="https://github.com/audreyr/cookiecutter">Cookiecutter</a></li>
+<li><a href="https://www.youtube.com/watch?v=QgZ7qv4Cd0Y">@Judy2k Talk on Publishing to PyPI</a></li>
+</ul>
+</section>
+    </div>
+  </div>
+
+  <script src="http://lab.hakim.se/reveal-js/lib/js/head.min.js"></script>
+  <script src="http://lab.hakim.se/reveal-js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Push each slide change to the browser history
+        history: true,
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'http://lab.hakim.se/reveal-js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'http://lab.hakim.se/reveal-js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'http://lab.hakim.se/reveal-js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    </body>
+</html>
