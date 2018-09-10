@@ -177,21 +177,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="fragment"><code>conda-skeleton</code> to create a <code>conda</code> installable package</li>
 </ul>
 </div>
-</section>
-<section id="distutils" class="slide level2">
-<h2><code>distutils</code></h2>
-<div>
-<ul>
-<li class="fragment">Part of the standard library</li>
-<li class="fragment">Largely falling out of fashion
-<ul>
-<li class="fragment">Even the official docs refer developers to other options such as …</li>
-</ul></li>
-</ul>
-</div>
-<aside class="notes">
-<p>periodically see reference to it</p>
-</aside>
+<!-- ## `distutils`
+
+::: incremental
+
+* Part of the standard library
+* Largely falling out of fashion
+  * Even the official docs refer developers to other options such as ...
+
+:::
+
+::: notes
+
+periodically see reference to it
+
+::: -->
 </section>
 <section id="setuptools" class="slide level2">
 <h2><code>setuptools</code></h2>
@@ -204,9 +204,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>specify package metadata</li>
 </ul></li>
 </ul>
+<aside class="notes">
+<p>mention distutils as legacy</p>
+</aside>
 </section>
-<section id="basic-setup.py" class="slide level2">
-<h2>Basic <code>setup.py</code></h2>
+<section id="setup.py" class="slide level2">
+<h2><code>setup.py</code></h2>
 <div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="im">from</span> setuptools <span class="im">import</span> setup</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb2-3" data-line-number="3"><span class="cf">with</span> <span class="bu">open</span>(<span class="st">&quot;README.md&quot;</span>, <span class="st">&quot;r&quot;</span>) <span class="im">as</span> fh:</a>
@@ -264,6 +267,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </aside>
 </section>
+<section id="pypi---python-package-index" class="slide level2">
+<h2>PyPI - Python Package Index</h2>
+<ul>
+<li>main repository for python packages</li>
+<li>when you pip install, it grabs files from here by default</li>
+<li>has a handy test server</li>
+</ul>
+<aside class="notes">
+<p>slight break</p>
+</aside>
+</section>
 <section id="creating-binary-distribution" class="slide level2">
 <h2>Creating Binary Distribution</h2>
 <div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb5-1" data-line-number="1">$ <span class="ex">python</span> setup.py bdist_wheel</a>
@@ -290,13 +304,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="fragment"><code>pip</code> defaults to install wheels but falls back to source archives</li>
 <li class="fragment">great for allowing others to audit source code</li>
-<li class="fragment">other tools (such as conda-skeleton) use these</li>
+<li class="fragment">other tools (such as conda-skeleton) use source archives</li>
 </ul>
 </div>
 </section>
 <section id="manifest.in" class="slide level2">
 <h2>MANIFEST.in</h2>
-<p>To grab these supplemental files you will need to manually specify them…we do this using a <code>MANIFEST.in</code> file</p>
+<p>To grab the supplemental files (README.md, LICENCE.txt, etc) you will need to manually specify them in a <code>MANIFEST.in</code> file</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb6-1" data-line-number="1">$ <span class="fu">cat</span> ~/Developer/timeview/MANIFEST.in</a>
 <a class="sourceLine" id="cb6-2" data-line-number="2"><span class="ex">include</span> timeview/manager/main.ui</a>
 <a class="sourceLine" id="cb6-3" data-line-number="3"><span class="ex">include</span> timeview/manager/dataset.db</a>
@@ -422,12 +436,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li><code>Pipfile.lock</code>
 <ul>
-<li>specific versions of all dependencies in dependency graph</li>
+<li>programmatically generated</li>
+<li>specifies complete dependency graph</li>
 </ul></li>
 </ul>
 <aside class="notes">
 <p>Discuss Difference Between Library and Application</p>
 <ul>
+<li>Disc</li>
 <li>Library is meant to be imported on a variety of platforms
 <ul>
 <li>not great for pipenv</li>
@@ -508,8 +524,8 @@ pytest = &quot;&gt;=3.7.0&quot;</code></pre>
 <section id="now-forget-do-not-worry-about-remembering-everything-i-just-said" class="slide level2">
 <h2>Now <del>Forget</del> Do Not Worry About Remembering Everything I Just Said</h2>
 </section>
-<section id="keep-it-in-mind" class="slide level2">
-<h2>Keep It In Mind</h2>
+<section id="keep-in-mind" class="slide level2">
+<h2>Keep In Mind</h2>
 <div>
 <ul>
 <li class="fragment">Doing all these manual file configurations is tedious</li>
@@ -604,6 +620,38 @@ pytest = &quot;&gt;=3.7.0&quot;</code></pre>
 </ul>
 </aside>
 </section>
+<section id="how-its-made-pt-1" class="slide level2">
+<h2>How It’s Made (Pt 1)</h2>
+<ul>
+<li>slides were created from markdown</li>
+</ul>
+<div class="sourceCode" id="cb11"><pre class="sourceCode markdown"><code class="sourceCode markdown"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="fu">## How It&#39;s Made (Pt 1)</span></a>
+<a class="sourceLine" id="cb11-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb11-3" data-line-number="3">* <span class="fl">slides were created from markdown</span></a></code></pre></div>
+</section>
+<section id="how-its-made-pt-2" class="slide level2">
+<h2>How It’s Made (Pt 2)</h2>
+<p>Used <code>pandoc</code> to convert to reveal.js slides</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb12-1" data-line-number="1">$ <span class="ex">pandoc</span> slides.md -t revealjs \</a>
+<a class="sourceLine" id="cb12-2" data-line-number="2">                   -s \</a>
+<a class="sourceLine" id="cb12-3" data-line-number="3">                   -o index.html \</a>
+<a class="sourceLine" id="cb12-4" data-line-number="4">                   -V revealjs-url=./reveal.js \</a>
+<a class="sourceLine" id="cb12-5" data-line-number="5">                   -V theme=beige \</a>
+<a class="sourceLine" id="cb12-6" data-line-number="6">                   -V slideNumber=true</a></code></pre></div>
+<aside class="notes">
+<p>had to download reveal.js and store locally used git submodule</p>
+</aside>
+</section>
+<section id="how-its-made-pt-3" class="slide level2">
+<h2>How It’s Made (Pt 3)</h2>
+<p>Added files to github in <code>gh_pages</code> branch <img data-src="./images/github_repo.png" /></p>
+</section>
+<section id="how-its-made-pt-4" class="slide level2">
+<h2>How It’s Made (Pt 4)</h2>
+<ul>
+<li>Enabling github pages <img data-src="./images/github_pages.png" /></li>
+</ul>
+</section>
 <section id="questions" class="slide level2">
 <h2>Questions?</h2>
 <p>https://j9ac9k.github.io/reproducible-python-talk</p>
@@ -619,8 +667,17 @@ pytest = &quot;&gt;=3.7.0&quot;</code></pre>
       // Full list of configuration options available at:
       // https://github.com/hakimel/reveal.js#configuration
       Reveal.initialize({
+        // Display a presentation progress bar
+        progress: true,
+        // Display the page number of the current slide
+        slideNumber: true,
         // Push each slide change to the browser history
         history: true,
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 960,
+        height: 720,
 
         // Optional reveal.js plugins
         dependencies: [

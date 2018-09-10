@@ -81,7 +81,7 @@ assigning license is important because ...
 
 :::
 
-## `distutils`
+<!-- ## `distutils`
 
 ::: incremental
 
@@ -95,7 +95,7 @@ assigning license is important because ...
 
 periodically see reference to it
 
-:::
+::: -->
 
 ## `setuptools`
 
@@ -105,7 +105,13 @@ periodically see reference to it
   * configure it to install dependencies
   * specify package metadata
 
-## Basic `setup.py`
+::: notes
+
+mention distutils as legacy
+
+:::
+
+## `setup.py`
 
 ```python
 from setuptools import setup
@@ -157,6 +163,7 @@ array([[0.        , 1.41421356, 2.82842712],
 discuss -e
 
 :::
+
 ## Private Deployment
 
 At this point, if the source code is on a remote git repository, it's installable via pip by someone else!
@@ -171,6 +178,18 @@ git+git://github.com/j9ac9k/adj_matrix#egg=adj_matrix
 
 * pip supports installation from git repositories
 * great for keeping content somewhat private
+
+:::
+
+## PyPI - Python Package Index
+
+* main repository for python packages
+* when you pip install, it grabs files from here by default
+* has a handy test server
+
+::: notes
+
+slight break
 
 :::
 
@@ -203,13 +222,13 @@ By default `setuptools` ignores these files.
 
 * `pip` defaults to install wheels but falls back to source archives
 * great for allowing others to audit source code
-* other tools (such as conda-skeleton) use these
+* other tools (such as conda-skeleton) use source archives
 
 :::
 
 ## MANIFEST.in
 
-To grab these supplemental files you will need to manually specify them...we do this using a `MANIFEST.in` file
+To grab the supplemental files (README.md, LICENCE.txt, etc) you will need to manually specify them in a `MANIFEST.in` file
 
 ```bash
 $ cat ~/Developer/timeview/MANIFEST.in
@@ -336,12 +355,14 @@ $ pip install scipy
 * `Pipfile`
   * list of dependencies with loose versioning requirements
 * `Pipfile.lock`
-  * specific versions of all dependencies in dependency graph
+  * programmatically generated
+  * specifies complete dependency graph
 
 ::: notes
 
 Discuss Difference Between Library and Application
 
+* Disc
 * Library is meant to be imported on a variety of platforms
   * not great for pipenv
 * Applications is the main point of interaction
@@ -420,7 +441,7 @@ Suggested usage
 
 ## Now ~~Forget~~ Do Not Worry About Remembering Everything I Just Said
 
-## Keep It In Mind
+## Keep In Mind
 
 ::: incremental
 
@@ -510,6 +531,48 @@ use a template on a non-existent project to see how something works
 * \@judy2k talk was presented at a recent python conference
 
 :::
+
+## How It's Made (Pt 1)
+
+* slides were created from markdown
+
+```markdown
+## How It's Made (Pt 1)
+
+* slides were created from markdown
+```
+
+## How It's Made (Pt 2)
+
+Used `pandoc` to convert to reveal.js slides
+
+```bash
+$ pandoc slides.md -t revealjs \
+                   -s \
+                   -o index.html \
+                   -V revealjs-url=./reveal.js \
+                   -V theme=beige \
+                   -V slideNumber=true
+```
+
+::: notes
+
+had to download reveal.js and store locally
+used git submodule
+
+:::
+
+## How It's Made (Pt 3)
+
+Added files to github in `gh_pages` branch
+![ ](./images/github_repo.png "")
+
+
+## How It's Made (Pt 4)
+
+* Enabling github pages
+![ ](./images/github_pages.png "")
+
 
 ## Questions?
 
